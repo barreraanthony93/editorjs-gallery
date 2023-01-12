@@ -1,0 +1,16 @@
+{
+  "name": "editorjs-gallery",
+  "version": "1.0.0",
+  "description": "personal package for gallery plugin in editorjs",
+  "main": "./dist/bundle.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/barreraanthony93/editorjs-gallery.git"
+  },
+  "keywords": ["editorjs"],
+  "author": "",
+  "license": "ISC"
+}
