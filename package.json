@@ -1,16 +1,35 @@
 {
   "name": "editorjs-gallery",
-  "version": "1.0.0",
+  "version": "1.0.12",
   "description": "personal package for gallery plugin in editorjs",
   "main": "./dist/bundle.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack ./src/index.js --output-filename=bundle.js --mode=development && npm link && npm publish"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/barreraanthony93/editorjs-gallery.git"
   },
-  "keywords": ["editorjs"],
+  "keywords": [
+    "editorjs"
+  ],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "webpack-cli": "^5.0.1"
+  },
+  "dependencies": {
+    "@babel/preset-env": "^7.20.2",
+    "@codexteam/ajax": "^4.2.0",
+    "babel-loader": "^9.1.2",
+    "css-loader": "^6.7.3",
+    "eslint-loader": "^4.0.2",
+    "postcss-loader": "^7.0.2",
+    "postcss-nested": "^6.0.0",
+    "postcss-nested-ancestors": "^3.0.0",
+    "sortablejs": "^1.15.0",
+    "style-loader": "^3.3.1",
+    "svg-inline-loader": "^0.8.2"
+  }
 }

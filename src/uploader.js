@@ -15,6 +15,11 @@ export default class Uploader {
     this.config = config;
   }
 
+
+  deletingFile(file){
+    return file
+  }
+
   /**
    * Handle clicks on the upload file button
    */
@@ -64,6 +69,7 @@ export default class Uploader {
    * @param {File} file - file pasted by drag-n-drop
    */
   uploadByFile(file) {
+   
     const formData = new FormData();
 
     formData.append(this.config.field, file);

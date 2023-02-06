@@ -49,6 +49,7 @@ import Ui from './ui';
 import Tunes from './tunes';
 import ToolboxIcon from './svg/toolbox.svg';
 import Uploader from './uploader';
+import Delete from './delete';
 
 /**
  * @typedef {object} ImageConfig
@@ -62,7 +63,9 @@ import Uploader from './uploader';
  * @property {object} additionalRequestHeaders - allows to pass custom headers with Request
  * @property {string} buttonContent - overrides for Select File button
  * @property {object} [uploader] - optional custom uploader
+ * @property {object} [delete] - optional custom delete
  * @property {function(File): Promise.<UploadResponseFormat>} [uploader.uploadByFile] - method that upload image by File
+ * @property {function(Array)} [delete.onDelete] - method that delete image by File
  */
 
 /**
@@ -120,7 +123,7 @@ export default class ImageGallery {
       types: config.types || 'image/*',
       captionPlaceholder: this.api.i18n.t(config.captionPlaceholder || 'Gallery caption'),
       buttonContent: config.buttonContent || '',
-      uploader: config.uploader || undefined,
+      uploader: config.uploader || undefined, 
       actions: config.actions || [],
       maxElementCount: config.maxElementCount || undefined,
     };
@@ -130,7 +133,7 @@ export default class ImageGallery {
      */
     this.uploader = new Uploader({
       config: this.config,
-    });
+    }); 
 
     /**
      * Module for working with UI
@@ -153,7 +156,13 @@ export default class ImageGallery {
         });
       },
       onDeleteFile: (id) => {
+        if (this._data.files[id] !== undefined) {
+          let imageDeleted = this._data.files.splice(id, 1);
+          // send image deleted
+          this.uploader.deletingFile(imageDeleted)
+        }
         this.deleteImage(id);
+        return id
       },
       onMoveFile: (oldId, newId) => {
         this.moveImage(oldId, newId);
@@ -279,10 +288,12 @@ export default class ImageGallery {
    */
   deleteImage(id) {
     if (this._data.files[id] !== undefined) {
-      this._data.files.splice(id, 1);
-
+      let imageDeleted = this._data.files.splice(id, 1);
+      // send image deleted
+      this.config.delete(imageDeleted) 
       this.checkMaxElemCount();
     }
+    return id
   }
 
   /**
